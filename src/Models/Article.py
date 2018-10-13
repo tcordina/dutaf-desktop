@@ -19,16 +19,3 @@ class Article:
         """, (self._name, self._price, self._quant))
         conn.commit()
         conn.close()
-
-    def list(self=None):
-        articles = []
-
-        conn = sqlite3.connect('database/data.db')
-        cursor = conn.cursor()
-        cursor.execute("""SELECT * FROM article""")
-        for row in cursor:
-            articles.append(row)
-        conn.commit()
-        conn.close()
-
-        return articles
