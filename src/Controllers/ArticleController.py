@@ -1,7 +1,9 @@
 from src.Models import Article
 from src.Repositories import ArticleRepository
+from src.Repositories import FournisseurRepository
 
 article = Article.Article
+
 
 def new_article():
 
@@ -11,9 +13,17 @@ def new_article():
     price = float(input('Prix ?\n'))
     quant = int(input('Quantité ?\n'))
 
+    fours = FournisseurRepository.find_all()
+    four_txt = 'Fournisseur ? \n'
+    for four in fours:
+        four_txt += str(four[0])+' - '+four[1]+' ('+four[2]+')\n'
+
+    fournisseur = int(input(four_txt))
+
     article._name = name
     article._price = price
     article._quant = quant
+    article._fournisseur = fournisseur
 
     article.insert(article)
 

@@ -2,29 +2,29 @@ import sqlite3
 
 
 def find_all():
-    articles = []
+    fournisseurs = []
 
     conn = sqlite3.connect('database/data.db')
     cursor = conn.cursor()
-    cursor.execute("""SELECT * FROM article""")
+    cursor.execute("""SELECT * FROM fournisseur""")
 
     for row in cursor:
-        articles.append(row)
+        fournisseurs.append(row)
 
     conn.commit()
     conn.close()
 
-    return articles
+    return fournisseurs
 
 
 def find_one(num):
     conn = sqlite3.connect('database/data.db')
     cursor = conn.cursor()
-    cursor.execute("""SELECT * FROM article WHERE id=?""", (num,))
+    cursor.execute("""SELECT * FROM fournisseur WHERE id=?""", (num,))
 
-    article = cursor.fetchone()
-    print(article)
+    fournisseur = cursor.fetchone()
+    print(fournisseur)
     conn.commit()
     conn.close()
 
-    return article
+    return fournisseur
