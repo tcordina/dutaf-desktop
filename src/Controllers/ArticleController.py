@@ -1,44 +1,22 @@
 from src.Models import Article
 from src.Repositories import ArticleRepository
-from src.Repositories import FournisseurRepository
 
 article = Article.Article
 
 
-def new_article():
-
-    print('Veuillez renseigner les informations suivantes.\n')
-
-    name = input('Nom ?\n')
-    price = float(input('Prix ?\n'))
-    quant = int(input('Quantité ?\n'))
-
-    fours = FournisseurRepository.find_all()
-    four_txt = 'Fournisseur ? \n'
-    for four in fours:
-        four_txt += str(four[0])+' - '+four[1]+' ('+four[2]+')\n'
-
-    fournisseur = int(input(four_txt))
-
-    article._name = name
-    article._price = price
-    article._quant = quant
-    article._fournisseur = fournisseur
-
+def new_article(window):
+    print(window.comboBox)
+    article._name = window.lineEditArticleName.text()
+    article._price = window.doubleSpinBoxArticlePrix.text()
+    article._quant = window.spinBoxArticleQuant.text()
+    article._fournisseur = window.comboBox.currentData()
     article.insert(article)
 
-    print('Article ajouté avec succès')
 
-
-def list_articles():
+def list_articles(window):
     articles = ArticleRepository.find_all()
     for art in articles:
-        output = '\n'
-        output += str(art[0])+':\n'
-        output += 'Nom: '+art[1]+'\n'
-        output += 'Prix: '+str(art[2])+'€\n'
-        output += 'Quantité: '+str(art[3])
-        print(output)
+        i = window.tableViewArticles.rowCount()
 
 
 def find_article():

@@ -30,6 +30,14 @@ def list_fournisseurs():
         print(output)
 
 
+def select_fournisseur():
+    fournisseurs = FournisseurRepository.find_all()
+    output = []
+    for four in fournisseurs:
+        output.append(four[1])
+    return output
+
+
 def find_fournisseur():
     num = int(input('Quel est l\'ID de l\'fournisseur que vous cherchez ?\n'))
     art = FournisseurRepository.find_one(num)
