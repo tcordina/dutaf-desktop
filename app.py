@@ -56,6 +56,9 @@ class Ui_MainWindow(object):
         self.comboBoxArticleFournisseur = QtWidgets.QComboBox(self.tab)
         self.comboBoxArticleFournisseur.setGeometry(QtCore.QRect(423, 449, 171, 22))
         self.comboBoxArticleFournisseur.setObjectName("comboBoxArticleFournisseur")
+        fournisseurs = FournisseurRepository.find_all()
+        for four in fournisseurs:
+            self.comboBoxArticleFournisseur.addItem(four[1], int(four[0]))
         self.tableWidgetArticles = QtWidgets.QTableWidget(self.tab)
         self.tableWidgetArticles.setGeometry(QtCore.QRect(7, 10, 691, 371))
         self.tableWidgetArticles.setColumnCount(5)
@@ -70,15 +73,6 @@ class Ui_MainWindow(object):
         self.tableWidgetArticles.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetArticles.setHorizontalHeaderItem(4, item)
-        articles = ArticleRepository.find_all()
-        self.tableWidgetArticles.setRowCount(len(articles))
-        key = 0;
-        for article in articles:
-            for i in range(0,5):
-                item = QTableWidgetItem(str(article[i]))
-                item.setFlags(QtCore.Qt.ItemIsEnabled)
-                self.tableWidgetArticles.setItem(key, i, item)
-            key += 1
         self.tabWidgetArticles.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -132,9 +126,22 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         self.pushButtonArticle.clicked.connect(self.addArticle)
+        self.loadArticles()
 
     def addArticle(self):
         ArticleController.new_article(self)
+        self.loadArticles()
+
+    def loadArticles(self):
+        articles = ArticleRepository.find_all()
+        self.tableWidgetArticles.setRowCount(len(articles))
+        key = 0
+        for article in articles:
+            for i in range(0, 5):
+                item = QTableWidgetItem(str(article[i]))
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.tableWidgetArticles.setItem(key, i, item)
+            key += 1
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
