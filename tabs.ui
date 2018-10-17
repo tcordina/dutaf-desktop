@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
+    <width>711</width>
     <height>570</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -150,15 +150,46 @@
        </rect>
       </property>
      </widget>
-     <widget class="QTableView" name="tableViewArticles">
+     <widget class="QTableWidget" name="tableWidgetArticles">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>7</x>
         <y>10</y>
-        <width>661</width>
-        <height>381</height>
+        <width>691</width>
+        <height>371</height>
        </rect>
       </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="columnCount">
+       <number>5</number>
+      </property>
+      <column>
+       <property name="text">
+        <string>#</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Prix (€)</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Quantité</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Fournisseur</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -176,16 +207,6 @@
       </property>
       <property name="text">
        <string>Ajouter</string>
-      </property>
-     </widget>
-     <widget class="QTableView" name="tableViewFours">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>661</width>
-        <height>421</height>
-       </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -245,6 +266,31 @@
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidgetFours">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>10</y>
+        <width>690</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>#</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ville</string>
+       </property>
+      </column>
      </widget>
     </widget>
    </widget>
