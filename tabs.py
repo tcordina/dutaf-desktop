@@ -62,7 +62,6 @@ class Ui_MainWindow(object):
         self.tableViewArticles.setGeometry(QtCore.QRect(20, 10, 661, 381))
         self.tableViewArticles.setObjectName("tableViewArticles")
         self.tabWidgetArticles.addTab(self.tab, "")
-        self.tabWidgetArticles.add
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.pushButtonFour = QtWidgets.QPushButton(self.tab_2)
@@ -97,11 +96,13 @@ class Ui_MainWindow(object):
         self.tabWidgetArticles.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        '''
         self.tableViewArticles.setItem(0, 0, "ID")
         self.tableViewArticles.setItem(0, 1, "Nom")
         self.tableViewArticles.setItem(0, 2, "Prix")
         self.tableViewArticles.setItem(0, 3, "Quantité")
         self.tableViewArticles.setItem(0, 4, "fournisseur")
+        '''
 
         self.pushButtonArticle.clicked.connect(self.addArticle)
 
@@ -110,7 +111,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Allo"))
         self.label.setText(_translate("MainWindow", "Nom"))
         self.label_2.setText(_translate("MainWindow", "Prix"))
         self.label_3.setText(_translate("MainWindow", "Quantité"))

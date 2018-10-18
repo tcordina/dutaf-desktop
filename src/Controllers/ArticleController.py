@@ -1,15 +1,15 @@
 from src.Models import Article
 from src.Repositories import ArticleRepository
+import time
 
 article = Article.Article
 
 
 def new_article(window):
-    print(window.comboBox)
     article._name = window.lineEditArticleName.text()
     article._price = window.doubleSpinBoxArticlePrix.text()
     article._quant = window.spinBoxArticleQuant.text()
-    article._fournisseur = window.comboBox.currentData()
+    article._fournisseur = window.comboBoxArticleFournisseur.currentData()
     article.insert(article)
 
 

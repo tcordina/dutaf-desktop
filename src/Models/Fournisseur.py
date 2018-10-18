@@ -9,7 +9,6 @@ class Fournisseur:
 
     def insert(self):
         print('Inserting '+self._name)
-
         conn = sqlite3.connect('database/data.db')
         cursor = conn.cursor()
         cursor.execute("""

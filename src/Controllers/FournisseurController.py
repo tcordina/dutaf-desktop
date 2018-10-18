@@ -5,19 +5,10 @@ from src.Repositories import FournisseurRepository
 fournisseur = Fournisseur.Fournisseur
 
 
-def new_fournisseur():
-
-    print('Veuillez renseigner les informations suivantes.\n')
-
-    name = input('Nom ?\n')
-    city = input('Ville ?\n')
-
-    fournisseur._name = name
-    fournisseur._city = city
-
+def new_fournisseur(window):
+    fournisseur._name = window.lineEditFourName.text()
+    fournisseur._city = window.lineEditFourVille.text()
     fournisseur.insert(fournisseur)
-
-    print('Fournisseur ajouté avec succès')
 
 
 def list_fournisseurs():
