@@ -163,7 +163,11 @@
        <bool>true</bool>
       </property>
       <property name="columnCount">
+<<<<<<< HEAD
        <number>7</number>
+=======
+       <number>5</number>
+>>>>>>> cfa22df7cf97dcd907bada018f486e09309bf16c
       </property>
       <column>
        <property name="text">
@@ -190,6 +194,7 @@
         <string>Fournisseur</string>
        </property>
       </column>
+<<<<<<< HEAD
       <column>
        <property name="text">
         <string>Modifier</string>
@@ -200,6 +205,8 @@
         <string>Supprimer</string>
        </property>
       </column>
+=======
+>>>>>>> cfa22df7cf97dcd907bada018f486e09309bf16c
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -301,6 +308,7 @@
         <string>Ville</string>
        </property>
       </column>
+<<<<<<< HEAD
       <column>
        <property name="text">
         <string>Modifier</string>
@@ -311,6 +319,8 @@
         <string>Supprimer</string>
        </property>
       </column>
+=======
+>>>>>>> cfa22df7cf97dcd907bada018f486e09309bf16c
      </widget>
     </widget>
    </widget>
