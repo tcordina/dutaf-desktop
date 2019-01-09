@@ -28,3 +28,27 @@ class Article:
         """, (self._name, self._price, self._quant, self._fournisseur))
         conn.commit()
         conn.close()
+
+
+    def update(self, id):
+        print('Updating '+self._name)
+        print('id: '+str(id))
+        conn = sqlite3.connect('database/data.db')
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE article SET name=?, price=?, quant=?, fournisseur_id=? WHERE id=?
+        """, (self._name, self._price, self._quant, self._fournisseur, id))
+        conn.commit()
+        conn.close()
+
+    def delete(self, id):
+        print('Deleting article with ID '+str(id))
+
+        conn = sqlite3.connect('database/data.db')
+        cursor = conn.cursor()
+        cursor.execute("""
+            DELETE FROM article WHERE id=?
+        """, (id,))
+        conn.commit()
+        conn.close()
+

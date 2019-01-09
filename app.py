@@ -10,10 +10,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem
 from src.Controllers import ArticleController, FournisseurController
 from src.Repositories import ArticleRepository, FournisseurRepository
+import sqlite3
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.createTables()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 570)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -48,6 +50,10 @@ class Ui_MainWindow(object):
         self.pushButtonArticle = QtWidgets.QPushButton(self.tab)
         self.pushButtonArticle.setGeometry(QtCore.QRect(320, 480, 75, 23))
         self.pushButtonArticle.setObjectName("pushButtonArticle")
+        self.pushButtonArticleEdit = QtWidgets.QPushButton(self.tab)
+        self.pushButtonArticleEdit.setGeometry(QtCore.QRect(320, 480, 75, 23))
+        self.pushButtonArticleEdit.setObjectName("pushButtonArticleEdit")
+        self.pushButtonArticleEdit.hide()
         self.label_4 = QtWidgets.QLabel(self.tab)
         self.label_4.setGeometry(QtCore.QRect(340, 450, 71, 20))
         self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -169,11 +175,53 @@ class Ui_MainWindow(object):
 
     def editArticle(self, data):
         print(data)
-        # Article edition here
+        article = ArticleRepository.find(data)
+        print(article)
+        self.lineEditArticleName.setText(article[1])
+        self.doubleSpinBoxArticlePrix.setValue(float(article[2].replace(',', '.')))
+        self.spinBoxArticleQuant.setValue(int(article[3]))
+        self.comboBoxArticleFournisseur.setCurrentIndex(int(article[4]-1))
+        self.pushButtonArticleEdit.clicked.connect(lambda state, id=article[0]: self.updateArticle(id))
+        self.pushButtonArticle.hide()
+        self.pushButtonArticleEdit.show()
 
-    def delArticle(self, data):
-        print(data)
-        # Article deletion here
+    def updateArticle(self, id):
+        ArticleController.update_article(self, id)
+        self.loadArticles()
+        self.pushButtonArticleEdit.hide()
+        self.pushButtonArticleEdit.disconnect()
+        self.pushButtonArticle.show()
+        self.lineEditArticleName.setText('')
+        self.doubleSpinBoxArticlePrix.setValue(0)
+        self.spinBoxArticleQuant.setValue(0)
+        self.comboBoxArticleFournisseur.setCurrentIndex(0)
+
+    def delArticle(self, id):
+        print(id)
+        article = ArticleRepository.find(id)
+        print(article)
+        ArticleController.delete_article(id)
+        self.loadArticles()
+
+    def createTables(self):
+        conn = sqlite3.connect('database/data.db')
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS article(
+                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                name TEXT,
+                price FLOAT,
+                quant INTEGER,
+                fournisseur_id INTEGER
+            )
+        """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS fournisseur(
+                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                name VARCHAR(100),
+                city VARCHAR(100)
+            )
+        """)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -182,6 +230,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Prix"))
         self.label_3.setText(_translate("MainWindow", "Quantité"))
         self.pushButtonArticle.setText(_translate("MainWindow", "Ajouter"))
+        self.pushButtonArticleEdit.setText(_translate("MainWindow", "Editer"))
         self.label_4.setText(_translate("MainWindow", "Fournisseur"))
         self.tableWidgetArticles.setSortingEnabled(True)
         item = self.tableWidgetArticles.horizontalHeaderItem(0)

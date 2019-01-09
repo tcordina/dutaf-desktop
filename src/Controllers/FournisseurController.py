@@ -1,8 +1,8 @@
-from src.Models import Fournisseur
+from src.Models.Fournisseur import Fournisseur
 from src.Repositories import FournisseurRepository
 
 
-fournisseur = Fournisseur.Fournisseur
+fournisseur = Fournisseur
 
 
 def new_fournisseur(window):

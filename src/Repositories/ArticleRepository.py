@@ -17,13 +17,11 @@ def find_all():
     return articles
 
 
-def find_one(num):
+def find(num):
     conn = sqlite3.connect('database/data.db')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM article WHERE id=?""", (num,))
-
     article = cursor.fetchone()
-    print(article)
     conn.commit()
     conn.close()
 
