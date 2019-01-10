@@ -17,13 +17,11 @@ def find_all():
     return fournisseurs
 
 
-def find_one(num):
+def find(num):
     conn = sqlite3.connect('database/data.db')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM fournisseur WHERE id=?""", (num,))
-
     fournisseur = cursor.fetchone()
-    print(fournisseur)
     conn.commit()
     conn.close()
 

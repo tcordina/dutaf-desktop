@@ -85,6 +85,10 @@ class Ui_MainWindow(object):
         self.pushButtonFour = QtWidgets.QPushButton(self.tab_2)
         self.pushButtonFour.setGeometry(QtCore.QRect(320, 480, 75, 23))
         self.pushButtonFour.setObjectName("pushButtonFour")
+        self.pushButtonFourEdit = QtWidgets.QPushButton(self.tab)
+        self.pushButtonFourEdit.setGeometry(QtCore.QRect(320, 480, 75, 23))
+        self.pushButtonFourEdit.setObjectName("pushButtonFourEdit")
+        self.pushButtonFourEdit.hide()
         self.label_6 = QtWidgets.QLabel(self.tab_2)
         self.label_6.setGeometry(QtCore.QRect(110, 450, 47, 13))
         self.label_6.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -104,7 +108,7 @@ class Ui_MainWindow(object):
         self.tableWidgetFours = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidgetFours.setGeometry(QtCore.QRect(7, 10, 800, 411))
         self.tableWidgetFours.setObjectName("tableWidgetFours")
-        self.tableWidgetFours.setColumnCount(3)
+        self.tableWidgetFours.setColumnCount(5)
         self.tableWidgetFours.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetFours.setHorizontalHeaderItem(0, item)
@@ -112,6 +116,10 @@ class Ui_MainWindow(object):
         self.tableWidgetFours.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetFours.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetFours.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidgetFours.setHorizontalHeaderItem(4, item)
         self.tabWidgetArticles.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -167,6 +175,14 @@ class Ui_MainWindow(object):
         self.tableWidgetFours.setRowCount(len(fours))
         key = 0;
         for four in fours:
+            btnEditFour = QtWidgets.QPushButton(self.tableWidgetArticles)
+            btnEditFour.setText('Editer')
+            btnEditFour.clicked.connect(lambda state, data=four[0]: self.editFour(data))
+            btnDelFour = QtWidgets.QPushButton(self.tableWidgetArticles)
+            btnDelFour.setText('Supprimer')
+            btnDelFour.clicked.connect(lambda state, data=four[0]: self.delFour(data))
+            self.tableWidgetFours.setCellWidget(key, 4, btnDelFour)
+            self.tableWidgetFours.setCellWidget(key, 3, btnEditFour)
             for i in range(0, 3):
                 item = QTableWidgetItem(str(four[i]))
                 item.setFlags(QtCore.Qt.ItemIsEnabled)
@@ -185,6 +201,15 @@ class Ui_MainWindow(object):
         self.pushButtonArticle.hide()
         self.pushButtonArticleEdit.show()
 
+    def editFour(self, data):
+        print(data)
+        four = FournisseurRepository.find(data)
+        print(four)
+        # update lineEdits
+        self.pushButtonFourEdit.clicked.connect(lambda state, id=four[0]: self.updateFour(id))
+        self.pushButtonFour.hide()
+        self.pushButtonFourEdit.show()
+
     def updateArticle(self, id):
         ArticleController.update_article(self, id)
         self.loadArticles()
@@ -196,12 +221,18 @@ class Ui_MainWindow(object):
         self.spinBoxArticleQuant.setValue(0)
         self.comboBoxArticleFournisseur.setCurrentIndex(0)
 
+    def updateFour(self, id):
+        print(id)
+
     def delArticle(self, id):
         print(id)
         article = ArticleRepository.find(id)
         print(article)
         ArticleController.delete_article(id)
         self.loadArticles()
+
+    def delFour(self, id):
+        print(id)
 
     def createTables(self):
         conn = sqlite3.connect('database/data.db')
@@ -225,7 +256,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Dutaf"))
         self.label.setText(_translate("MainWindow", "Nom"))
         self.label_2.setText(_translate("MainWindow", "Prix"))
         self.label_3.setText(_translate("MainWindow", "Quantité"))
@@ -257,6 +288,10 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Nom"))
         item = self.tableWidgetFours.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Ville"))
+        item = self.tableWidgetFours.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Editer"))
+        item = self.tableWidgetFours.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Supprimer"))
         self.tabWidgetArticles.setTabText(self.tabWidgetArticles.indexOf(self.tab_2), _translate("MainWindow", "Fournisseurs"))
 
 
