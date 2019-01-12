@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'tabs.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem
 from src.Controllers import ArticleController, FournisseurController
@@ -14,53 +6,67 @@ import sqlite3
 
 
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         self.createTables()
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 570)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.tabWidgetArticles = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidgetArticles.setGeometry(QtCore.QRect(0, 0, 800, 531))
         self.tabWidgetArticles.setObjectName("tabWidgetArticles")
+
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+
         self.lineEditArticleName = QtWidgets.QLineEdit(self.tab)
         self.lineEditArticleName.setGeometry(QtCore.QRect(140, 410, 171, 20))
         self.lineEditArticleName.setObjectName("lineEditArticleName")
+
         self.label = QtWidgets.QLabel(self.tab)
         self.label.setGeometry(QtCore.QRect(80, 414, 47, 13))
         self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
+
         self.label_2 = QtWidgets.QLabel(self.tab)
         self.label_2.setGeometry(QtCore.QRect(80, 454, 47, 13))
         self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
+
         self.label_3 = QtWidgets.QLabel(self.tab)
         self.label_3.setGeometry(QtCore.QRect(363, 413, 47, 13))
         self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_3.setObjectName("label_3")
-        self.doubleSpinBoxArticlePrix = QtWidgets.QDoubleSpinBox(self.tab)
-        self.doubleSpinBoxArticlePrix.setGeometry(QtCore.QRect(140, 450, 171, 22))
-        self.doubleSpinBoxArticlePrix.setObjectName("doubleSpinBoxArticlePrix")
-        self.spinBoxArticleQuant = QtWidgets.QSpinBox(self.tab)
-        self.spinBoxArticleQuant.setGeometry(QtCore.QRect(423, 409, 171, 22))
-        self.spinBoxArticleQuant.setObjectName("spinBoxArticleQuant")
-        self.pushButtonArticle = QtWidgets.QPushButton(self.tab)
-        self.pushButtonArticle.setGeometry(QtCore.QRect(320, 480, 75, 23))
-        self.pushButtonArticle.setObjectName("pushButtonArticle")
-        self.pushButtonArticleEdit = QtWidgets.QPushButton(self.tab)
-        self.pushButtonArticleEdit.setGeometry(QtCore.QRect(320, 480, 75, 23))
-        self.pushButtonArticleEdit.setObjectName("pushButtonArticleEdit")
-        self.pushButtonArticleEdit.hide()
+
         self.label_4 = QtWidgets.QLabel(self.tab)
         self.label_4.setGeometry(QtCore.QRect(340, 450, 71, 20))
         self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_4.setObjectName("label_4")
+
+        self.doubleSpinBoxArticlePrix = QtWidgets.QDoubleSpinBox(self.tab)
+        self.doubleSpinBoxArticlePrix.setGeometry(QtCore.QRect(140, 450, 171, 22))
+        self.doubleSpinBoxArticlePrix.setObjectName("doubleSpinBoxArticlePrix")
+
+        self.spinBoxArticleQuant = QtWidgets.QSpinBox(self.tab)
+        self.spinBoxArticleQuant.setGeometry(QtCore.QRect(423, 409, 171, 22))
+        self.spinBoxArticleQuant.setObjectName("spinBoxArticleQuant")
+
+        self.pushButtonArticle = QtWidgets.QPushButton(self.tab)
+        self.pushButtonArticle.setGeometry(QtCore.QRect(320, 480, 75, 23))
+        self.pushButtonArticle.setObjectName("pushButtonArticle")
+
+        self.pushButtonArticleEdit = QtWidgets.QPushButton(self.tab)
+        self.pushButtonArticleEdit.setGeometry(QtCore.QRect(320, 480, 75, 23))
+        self.pushButtonArticleEdit.setObjectName("pushButtonArticleEdit")
+        self.pushButtonArticleEdit.hide()
+
         self.comboBoxArticleFournisseur = QtWidgets.QComboBox(self.tab)
         self.comboBoxArticleFournisseur.setGeometry(QtCore.QRect(423, 449, 171, 22))
         self.comboBoxArticleFournisseur.setObjectName("comboBoxArticleFournisseur")
+
         self.tableWidgetArticles = QtWidgets.QTableWidget(self.tab)
         self.tableWidgetArticles.setGeometry(QtCore.QRect(7, 10, 800, 371))
         self.tableWidgetArticles.setColumnCount(7)
@@ -80,31 +86,39 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetArticles.setHorizontalHeaderItem(6, item)
         self.tabWidgetArticles.addTab(self.tab, "")
+
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
+
         self.pushButtonFour = QtWidgets.QPushButton(self.tab_2)
         self.pushButtonFour.setGeometry(QtCore.QRect(320, 480, 75, 23))
         self.pushButtonFour.setObjectName("pushButtonFour")
-        self.pushButtonFourEdit = QtWidgets.QPushButton(self.tab)
+
+        self.pushButtonFourEdit = QtWidgets.QPushButton(self.tab_2)
         self.pushButtonFourEdit.setGeometry(QtCore.QRect(320, 480, 75, 23))
         self.pushButtonFourEdit.setObjectName("pushButtonFourEdit")
         self.pushButtonFourEdit.hide()
+
         self.label_6 = QtWidgets.QLabel(self.tab_2)
         self.label_6.setGeometry(QtCore.QRect(110, 450, 47, 13))
         self.label_6.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_6.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_6.setObjectName("label_6")
+
         self.lineEditFourName = QtWidgets.QLineEdit(self.tab_2)
         self.lineEditFourName.setGeometry(QtCore.QRect(170, 446, 171, 20))
         self.lineEditFourName.setObjectName("lineEditFourName")
+
         self.lineEditFourVille = QtWidgets.QLineEdit(self.tab_2)
         self.lineEditFourVille.setGeometry(QtCore.QRect(420, 446, 171, 20))
         self.lineEditFourVille.setObjectName("lineEditFourVille")
+
         self.label_7 = QtWidgets.QLabel(self.tab_2)
         self.label_7.setGeometry(QtCore.QRect(360, 450, 47, 13))
         self.label_7.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_7.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_7.setObjectName("label_7")
+
         self.tableWidgetFours = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidgetFours.setGeometry(QtCore.QRect(7, 10, 800, 411))
         self.tableWidgetFours.setObjectName("tableWidgetFours")
@@ -121,6 +135,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetFours.setHorizontalHeaderItem(4, item)
         self.tabWidgetArticles.addTab(self.tab_2, "")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -205,7 +220,8 @@ class Ui_MainWindow(object):
         print(data)
         four = FournisseurRepository.find(data)
         print(four)
-        # update lineEdits
+        self.lineEditFourName.setText(four[1])
+        self.lineEditFourVille.setText(four[2])
         self.pushButtonFourEdit.clicked.connect(lambda state, id=four[0]: self.updateFour(id))
         self.pushButtonFour.hide()
         self.pushButtonFourEdit.show()
@@ -222,7 +238,14 @@ class Ui_MainWindow(object):
         self.comboBoxArticleFournisseur.setCurrentIndex(0)
 
     def updateFour(self, id):
-        print(id)
+        FournisseurController.update_fournisseur(self, id)
+        self.loadFournisseurs()
+        self.pushButtonFourEdit.hide()
+        self.pushButtonFourEdit.disconnect()
+        self.pushButtonFour.show()
+        self.lineEditFourName.setText('')
+        self.lineEditFourVille.setText('')
+        self.loadArticlesComboBox()
 
     def delArticle(self, id):
         print(id)
@@ -233,6 +256,13 @@ class Ui_MainWindow(object):
 
     def delFour(self, id):
         print(id)
+        four = FournisseurRepository.find(id)
+        print(four)
+        FournisseurController.delete_fournisseur(id)
+        self.loadFournisseurs()
+        self.loadArticles()
+        self.loadArticlesComboBox()
+
 
     def createTables(self):
         conn = sqlite3.connect('database/data.db')
@@ -280,6 +310,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Supprimer"))
         self.tabWidgetArticles.setTabText(self.tabWidgetArticles.indexOf(self.tab), _translate("MainWindow", "Articles"))
         self.pushButtonFour.setText(_translate("MainWindow", "Ajouter"))
+        self.pushButtonFourEdit.setText(_translate("MainWindow", "Editer"))
         self.label_6.setText(_translate("MainWindow", "Nom"))
         self.label_7.setText(_translate("MainWindow", "Ville"))
         item = self.tableWidgetFours.horizontalHeaderItem(0)

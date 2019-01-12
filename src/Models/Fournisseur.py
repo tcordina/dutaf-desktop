@@ -23,3 +23,24 @@ class Fournisseur:
         """, (self._name, self._city))
         conn.commit()
         conn.close()
+
+    def update(self, id):
+        print('Updating '+self._name)
+        conn = sqlite3.connect('database/data.db')
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE fournisseur SET name=?, city=? WHERE id=?
+        """, (self._name, self._city, id))
+        conn.commit()
+        conn.close()
+
+    def delete(self, id):
+        print('Deleting fournisseur with ID '+str(id))
+
+        conn = sqlite3.connect('database/data.db')
+        cursor = conn.cursor()
+        cursor.execute("""
+            DELETE FROM fournisseur WHERE id=?
+        """, (id,))
+        conn.commit()
+        conn.close()

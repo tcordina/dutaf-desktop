@@ -11,6 +11,16 @@ def new_fournisseur(window):
     fournisseur.insert(fournisseur)
 
 
+def update_fournisseur(window, id):
+    fournisseur._name = window.lineEditFourName.text()
+    fournisseur._city = window.lineEditFourVille.text()
+    fournisseur.update(fournisseur, id)
+
+
+def delete_fournisseur(id):
+    fournisseur.delete(fournisseur, id)
+
+
 def list_fournisseurs():
     fournisseurs = FournisseurRepository.find_all()
     for four in fournisseurs:

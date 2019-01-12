@@ -2,4 +2,4 @@
 
 Simple CRUD example to learn python.
 
-(Not the cleanest code but it still works)
+(Not the cleanest code but hey, it works !)
