@@ -7,15 +7,15 @@ import sqlite3
 
 class Ui_MainWindow(object):
 
-    def setupUi(self, MainWindow):
-        self.createTables()
+    def setup_ui(self, MainWindow):
+        self.create_tables()
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 570)
+        MainWindow.resize(750, 570)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         self.tabWidgetArticles = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidgetArticles.setGeometry(QtCore.QRect(0, 0, 800, 531))
+        self.tabWidgetArticles.setGeometry(QtCore.QRect(0, 0, 750, 531))
         self.tabWidgetArticles.setObjectName("tabWidgetArticles")
 
         self.tab = QtWidgets.QWidget()
@@ -141,42 +141,42 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        self.tabWidgetArticles.setCurrentIndex(1)
+        self.retranslate_ui(MainWindow)
+        self.tabWidgetArticles.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.pushButtonArticle.clicked.connect(self.addArticle)
-        self.pushButtonFour.clicked.connect(self.addFournisseur)
-        self.loadArticles()
-        self.loadFournisseurs()
-        self.loadArticlesComboBox()
+        self.pushButtonArticle.clicked.connect(self.add_article)
+        self.pushButtonFour.clicked.connect(self.add_fournisseur)
+        self.load_articles()
+        self.load_fournisseurs()
+        self.load_articles_combobox()
 
-    def addArticle(self):
+    def add_article(self):
         ArticleController.new_article(self)
-        self.loadArticles()
+        self.load_articles()
 
-    def addFournisseur(self):
+    def add_fournisseur(self):
         FournisseurController.new_fournisseur(self)
-        self.loadFournisseurs()
-        self.loadArticlesComboBox()
+        self.load_fournisseurs()
+        self.load_articles_combobox()
 
-    def loadArticlesComboBox(self):
+    def load_articles_combobox(self):
         self.comboBoxArticleFournisseur.clear()
         fournisseurs = FournisseurRepository.find_all()
         for four in fournisseurs:
             self.comboBoxArticleFournisseur.addItem(four[1], int(four[0]))
 
-    def loadArticles(self):
+    def load_articles(self):
         articles = ArticleRepository.find_all()
         self.tableWidgetArticles.setRowCount(len(articles))
         key = 0
         for article in articles:
             btnEditArticle = QtWidgets.QPushButton(self.tableWidgetArticles)
             btnEditArticle.setText('Editer')
-            btnEditArticle.clicked.connect(lambda state, data=article[0]: self.editArticle(data))
+            btnEditArticle.clicked.connect(lambda state, data=article[0]: self.edit_article(data))
             btnDelArticle = QtWidgets.QPushButton(self.tableWidgetArticles)
             btnDelArticle.setText('Supprimer')
-            btnDelArticle.clicked.connect(lambda state, data=article[0]: self.delArticle(data))
+            btnDelArticle.clicked.connect(lambda state, data=article[0]: self.del_article(data))
             self.tableWidgetArticles.setCellWidget(key, 6, btnDelArticle)
             self.tableWidgetArticles.setCellWidget(key, 5, btnEditArticle)
             for i in range(0, 5):
@@ -185,17 +185,17 @@ class Ui_MainWindow(object):
                 self.tableWidgetArticles.setItem(key, i, item)
             key += 1
 
-    def loadFournisseurs(self):
+    def load_fournisseurs(self):
         fours = FournisseurRepository.find_all()
         self.tableWidgetFours.setRowCount(len(fours))
         key = 0;
         for four in fours:
             btnEditFour = QtWidgets.QPushButton(self.tableWidgetArticles)
             btnEditFour.setText('Editer')
-            btnEditFour.clicked.connect(lambda state, data=four[0]: self.editFour(data))
+            btnEditFour.clicked.connect(lambda state, data=four[0]: self.edit_four(data))
             btnDelFour = QtWidgets.QPushButton(self.tableWidgetArticles)
             btnDelFour.setText('Supprimer')
-            btnDelFour.clicked.connect(lambda state, data=four[0]: self.delFour(data))
+            btnDelFour.clicked.connect(lambda state, data=four[0]: self.del_four(data))
             self.tableWidgetFours.setCellWidget(key, 4, btnDelFour)
             self.tableWidgetFours.setCellWidget(key, 3, btnEditFour)
             for i in range(0, 3):
@@ -204,31 +204,34 @@ class Ui_MainWindow(object):
                 self.tableWidgetFours.setItem(key, i, item)
             key += 1
 
-    def editArticle(self, data):
+    def edit_article(self, data):
         print(data)
         article = ArticleRepository.find(data)
         print(article)
         self.lineEditArticleName.setText(article[1])
         self.doubleSpinBoxArticlePrix.setValue(float(article[2].replace(',', '.')))
         self.spinBoxArticleQuant.setValue(int(article[3]))
-        self.comboBoxArticleFournisseur.setCurrentIndex(int(article[4]-1))
-        self.pushButtonArticleEdit.clicked.connect(lambda state, id=article[0]: self.updateArticle(id))
+        if article[5]:
+            self.comboBoxArticleFournisseur.setCurrentIndex(int(article[5]-1))
+        else:
+            self.comboBoxArticleFournisseur.setCurrentIndex(0)
+        self.pushButtonArticleEdit.clicked.connect(lambda state, id=article[0]: self.update_article(id))
         self.pushButtonArticle.hide()
         self.pushButtonArticleEdit.show()
 
-    def editFour(self, data):
+    def edit_four(self, data):
         print(data)
         four = FournisseurRepository.find(data)
         print(four)
         self.lineEditFourName.setText(four[1])
         self.lineEditFourVille.setText(four[2])
-        self.pushButtonFourEdit.clicked.connect(lambda state, id=four[0]: self.updateFour(id))
+        self.pushButtonFourEdit.clicked.connect(lambda state, id=four[0]: self.update_four(id))
         self.pushButtonFour.hide()
         self.pushButtonFourEdit.show()
 
-    def updateArticle(self, id):
+    def update_article(self, id):
         ArticleController.update_article(self, id)
-        self.loadArticles()
+        self.load_articles()
         self.pushButtonArticleEdit.hide()
         self.pushButtonArticleEdit.disconnect()
         self.pushButtonArticle.show()
@@ -237,54 +240,58 @@ class Ui_MainWindow(object):
         self.spinBoxArticleQuant.setValue(0)
         self.comboBoxArticleFournisseur.setCurrentIndex(0)
 
-    def updateFour(self, id):
+    def update_four(self, id):
         FournisseurController.update_fournisseur(self, id)
-        self.loadFournisseurs()
+        self.load_fournisseurs()
         self.pushButtonFourEdit.hide()
         self.pushButtonFourEdit.disconnect()
         self.pushButtonFour.show()
         self.lineEditFourName.setText('')
         self.lineEditFourVille.setText('')
-        self.loadArticlesComboBox()
+        self.load_articles_combobox()
 
-    def delArticle(self, id):
+    def del_article(self, id):
         print(id)
         article = ArticleRepository.find(id)
         print(article)
         ArticleController.delete_article(id)
-        self.loadArticles()
+        self.load_articles()
 
-    def delFour(self, id):
+    def del_four(self, id):
         print(id)
         four = FournisseurRepository.find(id)
         print(four)
         FournisseurController.delete_fournisseur(id)
-        self.loadFournisseurs()
-        self.loadArticles()
-        self.loadArticlesComboBox()
+        self.load_fournisseurs()
+        self.load_articles()
+        self.load_articles_combobox()
 
-
-    def createTables(self):
+    @staticmethod
+    def create_tables():
         conn = sqlite3.connect('database/data.db')
         cursor = conn.cursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS article(
-                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                name TEXT,
-                price FLOAT,
-                quant INTEGER,
-                fournisseur_id INTEGER
-            )
-        """)
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS fournisseur(
                 id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                 name VARCHAR(100),
                 city VARCHAR(100)
-            )
+            );
+        """)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS article(
+                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                name VARCHAR(100),
+                price FLOAT,
+                quant INTEGER,
+                fournisseur_id INTEGER,
+                CONSTRAINT fk_founisseur
+                    FOREIGN KEY (fournisseur_id)
+                    REFERENCES fournisseur(id)
+                    ON DELETE SET NULL
+            );
         """)
 
-    def retranslateUi(self, MainWindow):
+    def retranslate_ui(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Dutaf"))
         self.label.setText(_translate("MainWindow", "Nom"))
@@ -331,7 +338,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+    ui.setup_ui(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
 

@@ -22,20 +22,4 @@ def update_article(window, id):
 
 
 def delete_article(id):
-    article.delete(article, id)
-
-def list_articles(window):
-    articles = ArticleRepository.find_all()
-    for art in articles:
-        i = window.tableViewArticles.rowCount()
-
-
-def find_article():
-    num = int(input('Quel est l\'ID de l\'article que vous cherchez ?\n'))
-    art = ArticleRepository.find_one(num)
-    output = '\n'
-    output += 'Article n°'+str(art[0])+':\n'
-    output += 'Nom: '+art[1]+'\n'
-    output += 'Prix: '+str(art[2])+'€\n'
-    output += 'Quantité: '+str(art[3])
-    print(output)
+    article.delete(id)

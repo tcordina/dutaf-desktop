@@ -12,13 +12,6 @@ class Fournisseur:
         conn = sqlite3.connect('database/data.db')
         cursor = conn.cursor()
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS fournisseur(
-                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                name VARCHAR(100),
-                city VARCHAR(100)
-            )
-        """)
-        cursor.execute("""
             INSERT INTO fournisseur VALUES(null, ?, ?)
         """, (self._name, self._city))
         conn.commit()
@@ -34,9 +27,9 @@ class Fournisseur:
         conn.commit()
         conn.close()
 
-    def delete(self, id):
+    @staticmethod
+    def delete(id):
         print('Deleting fournisseur with ID '+str(id))
-
         conn = sqlite3.connect('database/data.db')
         cursor = conn.cursor()
         cursor.execute("""
